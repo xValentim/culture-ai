@@ -6,6 +6,7 @@ from langchain_core.messages import HumanMessage, AIMessage
 from src.chains_culture import chain
 from src.chains_classifier import *
 from fastapi.responses import StreamingResponse
+import json
 
 app = FastAPI()
 
@@ -44,6 +45,8 @@ async def chat(
     
     obra_3d = classifier_3d_object(last_message, model='groq')
     additional_kwargs = {'URL': obra_3d} if obra_3d else {}
+
+    print(additional_kwargs, "ADITIONAL")
     
     chat_history = []
     for message in converted_messages[-6:-1]:
@@ -55,8 +58,12 @@ async def chat(
     print(chat_history)
 
     async def generate():
+        # Send URL first if it exists
+        if obra_3d:
+            yield f"data: {json.dumps({'type': 'url', 'content': obra_3d})}\n\n"
+        
         async for chunk in chain.astream({"input": last_message, "chat_history": chat_history}):
-            yield f"data: {chunk}\n\n"
+            yield f"data: {json.dumps({'type': 'message', 'content': chunk})}\n\n"
 
     return StreamingResponse(
         generate(),
