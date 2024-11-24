@@ -5,6 +5,7 @@ from langchain_core.output_parsers import StrOutputParser
 from langchain_core.messages import SystemMessage, HumanMessage, AIMessage
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_groq import ChatGroq
+from operator import itemgetter 
 
 """
 
@@ -20,6 +21,17 @@ Modelos disponíveis:
 
 load_dotenv()
 
+embeddings = OpenAIEmbeddings(
+    model="text-embedding-3-large",
+    dimensions=1536
+)
+
+vdb_masp = FAISS.load_local("../vectorstore/masp", 
+                            embeddings, 
+                            allow_dangerous_deserialization=True)
+
+retriever_masp = vdb_masp.as_retriever(search_kwargs={"k": 4})
+
 # llm = ChatOpenAI(model="gpt-4o-mini", temperature=0.2)
 llm = ChatGroq(model="llama-3.1-70b-versatile", temperature=0)
 
@@ -32,6 +44,12 @@ Aqui está o histórico da conversa:
 [Inicio do histórico]
 {chat_history}
 [Final do histórico]
+
+Além disso, aqui está um contexto extra:
+
+[Contexto extra]
+{context_masp}
+[Final do contexto extra]
 --------------------------------------------
 """
 
@@ -42,4 +60,13 @@ prompt = ChatPromptTemplate.from_messages(
     ]
 )
 
-chain = prompt | llm | StrOutputParser()
+chain = (
+    {
+        "chat_history": itemgetter("chat_history"),
+        "input": itemgetter("input"),
+        "context_masp": itemgetter("input") | retriever_masp,
+    }
+    | prompt 
+    | llm 
+    | StrOutputParser()
+)
