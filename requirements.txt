@@ -3,6 +3,7 @@ langchain-core
 langchain
 langchain-community
 langchain-openai
+fastapi
 langchain-groq
 streamlit
 python-dotenv
@@ -12,3 +13,4 @@ streamlit
 unidecode
 docx2txt
 streamlit_authenticator
+sse_starlette
