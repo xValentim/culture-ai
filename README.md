@@ -4,6 +4,11 @@
 
 cultAI is an AI-powered chatbot designed to democratize access to cultural experiences, specifically focused on museums. It offers personalized, interactive educational content, including textual and 3D representations of exhibits from major museums across Latin America. The project targets individuals who face cultural inequality and limited technological resources, providing them with an enriching, accessible learning experience.
 
+
+<center>
+  <img src="./imgs/amnesia.gif" alt="Amnesia - Flavio Cerqueira" >
+</center>
+
 ---
 
 ## Problem Statement
