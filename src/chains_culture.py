@@ -25,12 +25,17 @@ embeddings = OpenAIEmbeddings(
     dimensions=1536
 )
 
-#! IMPORTANT, ON LOCAL ADD ../ TO THE PATH
 vdb_masp = FAISS.load_local("vectorstore/masp", 
                             embeddings, 
                             allow_dangerous_deserialization=True)
 
-retriever_masp = vdb_masp.as_retriever(search_kwargs={"k": 4})
+vdb_mexico = FAISS.load_local("vectorstore/mexico", 
+                            embeddings, 
+                            allow_dangerous_deserialization=True)
+
+
+retriever_masp = vdb_masp.as_retriever(search_kwargs={"k": 2})
+retriever_mexico = vdb_mexico.as_retriever(search_kwargs={"k": 2})
 
 # llm = ChatOpenAI(model="gpt-4o-mini", temperature=0.2)
 llm = ChatGroq(model="llama-3.1-70b-versatile", temperature=0)
@@ -45,11 +50,18 @@ Aqui está o histórico da conversa:
 {chat_history}
 [Final do histórico]
 
-Além disso, aqui está um contexto extra:
+Além disso, aqui está um contexto extra sobre o masp (que você pode ou não usar):
 
 [Contexto extra]
 {context_masp}
 [Final do contexto extra]
+
+Além disso, aqui está um contexto extra sobre o México (que você pode ou não usar):
+
+[Contexto extra]
+{context_mexico}
+[Final do contexto extra]
+
 --------------------------------------------
 """
 
@@ -65,6 +77,7 @@ chain = (
         "chat_history": itemgetter("chat_history"),
         "input": itemgetter("input"),
         "context_masp": itemgetter("input") | retriever_masp,
+        "context_mexico": itemgetter("input") | retriever_mexico,
     }
     | prompt 
     | llm 
