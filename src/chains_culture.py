@@ -25,7 +25,8 @@ embeddings = OpenAIEmbeddings(
     dimensions=1536
 )
 
-vdb_masp = FAISS.load_local("../vectorstore/masp", 
+#! IMPORTANT, ON LOCAL ADD ../ TO THE PATH
+vdb_masp = FAISS.load_local("vectorstore/masp", 
                             embeddings, 
                             allow_dangerous_deserialization=True)
 
