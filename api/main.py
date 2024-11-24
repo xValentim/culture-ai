@@ -4,6 +4,7 @@ from fastapi import FastAPI, Body
 from fastapi.middleware.cors import CORSMiddleware
 from langchain_core.messages import HumanMessage, AIMessage
 from src.chains_culture import chain
+from src.chains_classifier import *
 from fastapi.responses import StreamingResponse
 
 app = FastAPI()
@@ -40,6 +41,9 @@ async def chat(
             converted_messages.append(AIMessage(content=msg.content))
 
     last_message = converted_messages[-1].content
+    
+    obra_3d = classifier_3d_object(last_message, model='groq')
+    additional_kwargs = {'URL': obra_3d} if obra_3d else {}
     
     chat_history = []
     for message in converted_messages[-6:-1]:
