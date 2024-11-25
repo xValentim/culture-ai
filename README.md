@@ -70,6 +70,23 @@ cultAI addresses these challenges by:
 
 ---
 
+## Other repos using here
+
+1. Mobile application:
+     - https://github.com/giovannamoeller/cult-ai-iOS
+2. Web application:
+     - https://culture-ai-web.vercel.app/
+3. VR Application:
+     - https://splat-vis-production.up.railway.app/amnesia.html
+4. Gaussian splatting viewer:
+    - https://splat-vis-production.up.railway.app/amnesia.html
+    - https://github.com/xvalentim/splat-vis
+5. Gaussian splatting models: 
+    - https://huggingface.co/xValentim/splat-masp/tree/main
+6. Demo hackathon:
+    - https://lablab.ai/event/hackathon-llama-impact-pan-latam-es/neroa1/cultai
+  
+   
 ## Future Goals
 
 - **Step 1**: Expand to more Brazilian museums (currently over 3,000).
