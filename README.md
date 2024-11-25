@@ -78,7 +78,7 @@ cultAI addresses these challenges by:
      - https://culture-ai-web.vercel.app/
 3. VR Application:
      - https://splat-vis-production.up.railway.app/amnesia.html
-4. Gaussian splatting viewer:
+4. Gaussian splatting viewer: 
     - https://splat-vis-production.up.railway.app/amnesia.html
     - https://github.com/xvalentim/splat-vis
 5. Gaussian splatting models: 
