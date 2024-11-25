@@ -2,6 +2,9 @@ FROM python:3.9
 
 WORKDIR /app
 
+# Create vectorstore directory
+RUN mkdir -p vectorstore/masp
+
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
