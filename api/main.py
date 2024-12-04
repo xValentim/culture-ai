@@ -43,7 +43,7 @@ async def chat(
 
     last_message = converted_messages[-1].content
     
-    obra_3d = classifier_3d_object(last_message, model='groq')
+    obra_3d = classifier_3d_object(last_message, model='openai')
     additional_kwargs = {'URL': obra_3d} if obra_3d else {}
 
     print(additional_kwargs, "ADITIONAL")
