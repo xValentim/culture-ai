@@ -34,11 +34,11 @@ vdb_mexico = FAISS.load_local("vectorstore/mexico",
                             allow_dangerous_deserialization=True)
 
 
-retriever_masp = vdb_masp.as_retriever(search_kwargs={"k": 2})
+retriever_masp = vdb_masp.as_retriever(search_kwargs={"k": 3})
 retriever_mexico = vdb_mexico.as_retriever(search_kwargs={"k": 2})
 
-# llm = ChatOpenAI(model="gpt-4o-mini", temperature=0.2)
-llm = ChatGroq(model="llama-3.1-70b-versatile", temperature=0)
+llm = ChatOpenAI(model="gpt-4o-2024-08-06", temperature=0.02)
+# llm = ChatGroq(model="llama-3.1-70b-versatile", temperature=0)
 
 
 system_prompt = """
